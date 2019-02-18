@@ -5,7 +5,7 @@
 ## Content
 
 - [x] 1. [Getting started - 入门开始](./GettingStarted.md)
-- [ ] 2. Dense matrix and array manipulation - 稠密矩阵和数组处理
+- [x] 2. [Dense matrix and array manipulation - 稠密矩阵和数组处理](./TheMatrixClass.md)
 - [ ] 2.1 The Matrix class - 矩阵类
 - [ ] 2.2 Matrix and vector arithmetic
 - [ ] 2.3 The Array class and coefficient-wise operations
