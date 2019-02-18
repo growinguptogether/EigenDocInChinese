@@ -4,7 +4,7 @@
 
 ## Content
 
-- [ ] 1. Getting started - 入门开始
+- [x] 1. [Getting started - 入门开始](./GettingStarted.md)
 - [ ] 2. Dense matrix and array manipulation - 稠密矩阵和数组处理
 - [ ] 2.1 The Matrix class - 矩阵类
 - [ ] 2.2 Matrix and vector arithmetic
