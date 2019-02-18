@@ -106,7 +106,7 @@ v = \begin{bmatrix}
 \end{bmatrix}
 ```
 
-![](http://latex.codecogs.com/gif.latex?\\v=\\begin{bmatrix} 1\\\\ 2\\\\ 3 \\end{bmatrix})
+![](http://latex.codecogs.com/gif.latex?v%20%3D%20%5Cbegin%7Bbmatrix%7D%201%5C%5C%202%5C%5C%203%20%5Cend%7Bbmatrix%7D)
 
 最后一行是将矩阵和向量进行相乘，并且输出结果。
 
