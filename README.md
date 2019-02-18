@@ -8,7 +8,7 @@
 - [ ] 2. Dense matrix and array manipulation - 稠密矩阵和数组处理
 - [x] 2.1 [The Matrix class - 矩阵类](./TheMatrixClass.md)
 - [Doing] 2.2 Matrix and vector arithmetic - 矩阵和向量运算 
-- [ ] 2.3 The Array class and coefficient-wise operations
+- [Doing] 2.3 The Array class and coefficient-wise operations
 - [ ] 2.4 Block operations
 - [ ] 2.5 Advanced initialization 
 - [ ] 2.6 Reductions, visitors and broadcasting
