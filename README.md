@@ -9,8 +9,8 @@
 - [x] 2.1 [The Matrix class - 矩阵类](./TheMatrixClass.md)
 - [Doing] 2.2 Matrix and vector arithmetic - 矩阵和向量运算 
 - [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
-- [Doing] 2.4 Block operations
-- [ ] 2.5 Advanced initialization 
+- [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
+- [Doing] 2.5 Advanced initialization 
 - [ ] 2.6 Reductions, visitors and broadcasting
 - [ ] 2.7 Interfacing with raw buffers: the Map class
 - [ ] 2.8 Reshape and Slicing
@@ -25,3 +25,7 @@
 - [ ] 2.11.6 Compiler making a wrong assumption on stack alignment
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [ ] 2.13 Quick reference guide
+
+## Attention
+
+在对某一节内容进行翻译的时候，请将对应小节的状态更改成*Doing*，完成之后再对状态进行更改，并添加链接。
