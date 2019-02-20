@@ -10,8 +10,8 @@
 - [Doing] 2.2 Matrix and vector arithmetic - 矩阵和向量运算 
 - [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
 - [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
-- [Doing] 2.5 Advanced initialization 
-- [ ] 2.6 Reductions, visitors and broadcasting
+- [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
+- [Doing] 2.6 Reductions, visitors and broadcasting
 - [ ] 2.7 Interfacing with raw buffers: the Map class
 - [ ] 2.8 Reshape and Slicing
 - [ ] 2.9 Aliasing
