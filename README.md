@@ -7,7 +7,7 @@
 - [x] 1. [Getting started - 入门开始](./GettingStarted.md)
 - [ ] 2. Dense matrix and array manipulation - 稠密矩阵和数组处理
 - [x] 2.1 [The Matrix class - 矩阵类](./TheMatrixClass.md)
-- [x] 2.2 Matrix and vector arithmetic - 矩阵和向量运算(MatrixandVectorArithmetic.md) 
+- [x] 2.2 [Matrix and vector arithmetic - 矩阵和向量运算](./MatrixandVectorArithmetic.md) 
 - [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
 - [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
 - [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
