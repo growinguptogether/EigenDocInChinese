@@ -179,5 +179,184 @@ TODO
 
 ## Visitors
 
-visitors可用获取元素在数组或矩阵中的位置。
+visitors可用获取元素在数组或矩阵中的位置。最简单的使用方式是：`maxCoeff(&x,&y)`和`minCoeff(&x,&y)`，这两个函数是用来找到矩阵或数组中最大元素和最小元素的位置。
+
+传递给visitor的参数，存储行列位置的变量的指针。这些变量的类型应该是`Index`，如下：
+
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+
+using namespace std;
+using namespace Eigen;
+
+int main()
+{
+  MatrixXf m(2,2);
+
+  m << 1,2,
+       3,4;
+
+  // get location of maximum
+  MatrixXf::Index maxRow, maxCol;
+  float max = m.maxCoeff(&maxRow, &maxCol);
+
+  // get location of minimum
+  MatrixXf::Index minRow, minCol;
+  float min = m.minCoeff(&minRow, &minCol);
+
+  cout << "Max: " << max << ", at: " << maxRow << "," << maxCol << endl;
+  cout << "Min: " << min << ", at: " << minRow << "," << minCol << endl;
+}
+
+// output
+Max: 4, at: 1,1
+Min: 1, at: 0,0
+```
+
+同时两个函数也分别返回了最大值和最小值。
+
+## 部分reductions
+
+部分reductions是针对矩阵或向量的行或列进行reductions操作，并且返回一个行或列向量。
+部分reductions和`colwise()`或者`rowwise()`一起配合使用。
+
+一个简单的获取矩阵每一列最大值元素，并将结果存储到一个行向量的例子如下：
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+
+using namespace std;
+
+int main()
+{
+  Eigen::MatrixXf mat(2,4);
+  mat << 1,2,6,9,
+         3,1,7,2;
+  cout << "Column's maximum: " << endl
+       << mat.colwise().maxCoeff() << endl;
+}
+
+// output
+Column's maximum: 
+3 2 7 9
+```
+
+`rowwise()`的例子如下：
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+
+using namespace std;
+int main()
+{
+  Eigen::MatrixXf mat(2,4);
+  mat << 1,2,6,9,
+         3,1,7,2;
+  cout << "Row's maximum: " << endl
+       << mat.rowwise().maxCoeff() << endl;
+}
+
+// output
+Row's maximum: 
+9
+7
+```
+
+需要注意的是，`column-wise`操作返回的是行向量，而`row-wise`返回的是列向量。
+
+### 将部分reductions和其他操作组合
+
+这里也可以将部分reductions的结果进行进一步处理。下面是找到矩阵中列方向的元素和最大的列：
+
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+
+using namespace std;
+using namespace Eigen;
+
+int main()
+{
+  MatrixXf mat(2,4);
+  mat << 1,2,6,9,
+         3,1,7,2;
+  
+  MatrixXf::Index maxIndex;
+  float maxNorm = mat.colwise().sum().maxCoeff(&maxIndex);
+  cout << "Maximum sum at position " << maxIndex << endl;
+
+  cout << "The corresponding vector is: " << endl;
+  cout << mat.col(maxIndex) << endl;
+  cout << "And its sum is: " << maxNorm << endl;
+}
+
+// output
+Maximum sum at position 2
+The corresponding vector is: 
+6
+7
+And its sum is: 13
+```
+
+前面的例子，使用colwise()，然后再使用sum(),进行降维，得到一个1x4大小的新矩阵。
+
+因此，如果
+
+![](http://latex.codecogs.com/gif.latex?m%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%26%202%20%26%206%20%26%209%5C%5C%203%20%26%201%20%26%207%20%26%202%20%5Cend%7Bbmatrix%7D)
+
+那么：
+
+![](http://latex.codecogs.com/gif.latex?m.colwise%28%29.sum%28%29%20%3D%20%5Cbegin%7Bbmatrix%7D%204%20%26%203%20%26%2013%20%26%2011%20%5Cend%7Bbmatrix%7D)
+
+`maxCoeff()`就能够获取列和最大的位置。
+
+## Broadcasting
+
+broadcasting背后的概念和部分reductions比较类似，不同的地方是，
+broadcasting将一个向量（行向量或列向量）通过一个方向上的扩展构造成了一个矩阵。
+
+一个简单的例子是将某个列向量加到矩阵的每一列上。如下：
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+
+using namespace std;
+
+int main()
+{
+  Eigen::MatrixXf mat(2,4);
+  Eigen::VectorXf v(2);
+
+  mat << 1,2,6,9,
+         3,1,7,2;
+  v << 0,
+       1;
+  
+  // add v to each column of m
+  mat.colwise() += v;
+
+  std::cout << "Broadcasting result: " << std::endl;
+  std::cout << mat << std::endl;
+}
+
+// output
+Broadcasting result: 
+1 2 6 9
+4 2 8 3
+```
+
+我们可以将`mat.colwise() += v`这个指令，用两种方式进行理解。一种是，它将vector v加到矩阵的每一列。
+另一种理解是，先将向量v在行方向上进行扩展，形成2x4的矩阵，然后在进行求和：
+
+![](http://latex.codecogs.com/gif.latex?%5Cbegin%7Bbmatrix%7D%201%20%26%202%20%26%206%20%26%209%20%5C%5C%203%20%26%201%20%26%207%20%26%202%20%5Cend%7Bbmatrix%7D%20&plus;%20%5Cbegin%7Bbmatrix%7D%200%20%26%200%20%26%200%20%26%200%20%5C%5C%201%20%26%201%20%26%201%20%26%201%20%5Cend%7Bbmatrix%7D%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%26%202%20%26%206%20%26%209%20%5C%5C%204%20%26%202%20%26%208%20%26%203%20%5Cend%7Bbmatrix%7D)
+
+`-=`，`+`和`-`操作符一样可以使用到column-wise和row-wise。针对数组，我们还可以使用
+`*=`，`/=`，`*`用来执行coefficient-wise的column-wise或row-wise的乘法和除法操作。
+这些操作在矩阵上面是不适用的，因为矩阵上这样的操作对矩阵而言是不清晰的。
+如果你想要将v(0)和mat矩阵的第0列相乘，v(1)和mat矩阵的第一列相乘，等等，那么可以使用`mat = mat * v.asDiagonal()`。
+
 
