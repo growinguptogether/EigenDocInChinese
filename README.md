@@ -25,6 +25,10 @@
 - [ ] 2.11.6 Compiler making a wrong assumption on stack alignment
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [ ] 2.13 Quick reference guide
+- [x] 3. [Sparse linear algebra] - 稀疏线性代数
+- [Doing] 3.1 [Sparse matrix manipulations] - 稀疏矩阵运算
+- [Doing] 3.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统
+- [Doing] 3.3 [Matrix-free solvers] - 无矩阵求解器
 
 ## Attention
 
