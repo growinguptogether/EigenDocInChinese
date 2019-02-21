@@ -25,16 +25,16 @@
 - [ ] 2.11.6 Compiler making a wrong assumption on stack alignment
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [ ] 2.13 Quick reference guide
-- [x] 3. [Sparse linear algebra] - 稀疏线性代数
-- [Doing] 3.1 [Sparse matrix manipulations] - 稀疏矩阵运算
-- [Doing] 3.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统
-- [Doing] 3.3 [Matrix-free solvers] - 无矩阵求解器
 - [ ] 3. Dense linear problems and decompositions
 - [ ] 3.1 Linear algebra and decompositions
 - [ ] 3.2 Catalogue of dense decompositions
 - [ ] 3.3 Solving linear least squares systems
 - [ ] 3.4 Inplace matrix decompositions
 - [ ] 3.5 Benchmark of dense decompositions
+- [x] 4. [Sparse linear algebra] - 稀疏线性代数
+- [Doing] 4.1 [Sparse matrix manipulations] - 稀疏矩阵运算
+- [Doing] 4.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统
+- [Doing] 4.3 [Matrix-free solvers] - 无矩阵求解器
 
 ## Attention
 
