@@ -38,7 +38,7 @@ Here is mat.trace():     5
 
 `trace()`返回矩阵的迹，即矩阵的对角元素的和，这个和`a.diagonal().sum()`是等价的。
 
-## 范数计算
+### 范数计算
 
 > 译者加：关于范数可以参见：[向量范数和矩阵范数](https://blog.csdn.net/Michael__Corleone/article/details/75213123)
 
@@ -126,4 +126,58 @@ infty-norm(m) = 7 == 7
 
 下面会有更多表达式格式相关的介绍。
 
+### 布尔reductions
+
+下面的reduction操作是针对布尔的。
+
+- `all()`如果矩阵或数组中的所有元素都可以评估为true，那么返回true
+- `any()`如果矩阵或数组中有一个元素可以评估为true，那么返回true
+- `count()`返回矩阵或数组中评估为true的元素的个数
+
+这些操作通常与数组提供的coefficient-wise的比较操作和相等比较操作同时使用。如，
+`array > 0`那么数组中所有大于零的元素的位置会被设置成true。因此，
+`(array > 0).all()`用来检测数组中是不是所有元素都大于零。见如下例子：
+
+```c++
+#include <Eigen/Dense>
+#include <iostream>
+
+using namespace std;
+using namespace Eigen;
+
+int main()
+{
+  ArrayXXf a(2,2);
+
+  a << 1,2,
+       3,4;
+
+  cout << "(a > 0).all()    = " << (a > 0).all()   << endl;
+  cout << "(a > 0).any()    = " << (a > 0).any()   << endl;
+  cout << "(a > 0).count()  = " << (a > 0).count() << endl;
+  cout << endl;
+  cout << "(a > 2).all()    = " << (a > 2).all()   << endl;
+  cout << "(a > 2).any()    = " << (a > 2).any()   << endl;
+  cout << "(a > 2).count()  = " << (a > 2).count() << endl;
+}
+
+// output 
+(a > 0).all()   = 1
+(a > 0).any()   = 1
+(a > 0).count() = 4
+
+(a > 2).all()   = 0
+(a > 2).any()   = 1
+(a > 2).count() = 2<Paste>
+```
+
+### 用户自定义的reductions
+
+TODO
+
+在此期间可以看下`DenseBase::redux`函数。
+
+## Visitors
+
+visitors可用获取元素在数组或矩阵中的位置。
 
