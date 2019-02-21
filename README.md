@@ -11,8 +11,8 @@
 - [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
 - [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
 - [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
-- [Doing] 2.6 Reductions, visitors and broadcasting
-- [ ] 2.7 Interfacing with raw buffers: the Map class
+- [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
+- [Doing-stupidgrass] 2.7 Interfacing with raw buffers: the Map class
 - [Doing] 2.8 Reshape and Slicing
 - [ ] 2.9 Aliasing
 - [ ] 2.10 Storage orders
@@ -25,6 +25,12 @@
 - [ ] 2.11.6 Compiler making a wrong assumption on stack alignment
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [ ] 2.13 Quick reference guide
+- [ ] 3. Dense linear problems and decompositions
+- [ ] 3.1 Linear algebra and decompositions
+- [ ] 3.2 Catalogue of dense decompositions
+- [ ] 3.3 Solving linear least squares systems
+- [ ] 3.4 Inplace matrix decompositions
+- [ ] 3.5 Benchmark of dense decompositions
 
 ## Attention
 

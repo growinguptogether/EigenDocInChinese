@@ -359,4 +359,91 @@ Broadcasting result:
 这些操作在矩阵上面是不适用的，因为矩阵上这样的操作对矩阵而言是不清晰的。
 如果你想要将v(0)和mat矩阵的第0列相乘，v(1)和mat矩阵的第一列相乘，等等，那么可以使用`mat = mat * v.asDiagonal()`。
 
+值得注意的是能够被按column-wise或row-wise进行相加的必定是向量类型，而不能是矩阵。
+如果使用矩阵，那么会得到编译器错误。这也意味这，broadcasting操作仅仅能用在向量而不能用在矩阵。
+对于Array类，也是一样的，只能够用在ArrayXf，而不能用在多维数组。
 
+对于行的扩展如下：
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+
+using namespace std;
+
+int main()
+{
+  Eigen::MatrixXf mat(2,4);
+  Eigen::VectorXf v(4);
+
+  mat << 1,2,6,9,
+         3,1,7,2;
+
+  v << 0,1,2,3;
+  
+  mat.rowwise() += v.transpose();
+  cout << "Broadcasting result: " << endl;
+  cout << mat << endl;
+}
+
+// output 
+Broadcasting result: 
+ 1  3  8 12
+ 3  2  9  5
+```
+
+### 将broadcasting和其它操作一起使用
+
+broadcasting操作也一样可以和其他操作配合使用，如Matrix或Array的操作，
+reductions或是部分reductions。
+
+到目前为止，broadcasting，reductions和部分reductions都已经进行了介绍，下面给出一个
+更加高阶的例子，寻找矩阵的各个列中和向量v最接近的列。此处，会使用欧几里德距离，
+使用部分reduction函数`squaredNorm()`进行计算欧式距离的平方。
+
+```c++
+#include <iostream>
+#include <Eigen/Dense>
+
+using namespace std;
+using namespace Eigen;
+
+int main()
+{
+  MatrixXf m(2,4);
+  VectorXf v(2);
+
+  m << 1, 23, 6, 9,
+       3, 11, 7, 2;
+  
+  v << 2,
+       3;
+
+  MatrixXf::Index index;
+  // find nearest neighbour
+  (m.colwise() - v).colwise().squaredNorm().minCoeff(&index);
+
+  cout << "Nearest neighbour is column " << index << ":" << endl;
+  cout << m.col(index) << endl;
+}
+```
+
+主要完成任务的代码为：
+
+```c++
+(m.colwise() - v).colwise().squaredNorm().minCoeff(&index);
+```
+
+我们按照以下步骤对其进行理解：
+
+- m.colwise() - v 是一个broadcasting操作，从m每一列中将v减掉。
+得到的新的矩阵和原来的矩阵m有相同的大小：
+
+![](http://latex.codecogs.com/gif.latex?m.colwise%28%29-v%3D%5Cbegin%7Bbmatrix%7D%20-1%20%26%2021%20%26%204%20%26%207%20%5C%5C%200%20%26%208%20%26%204%20%26%20-1%20%5Cend%7Bbmatrix%7D)
+
+- (m.colwise() - v).colwise().squaredNorm() 是一个局部reduction，用来计算列方向上的和的平方。
+得到的结果是行向量，每个元素表示m的列和v之间的欧几里德距离的平方。
+
+![](http://latex.codecogs.com/gif.latex?%28m.colwise%28%29-v%29.colwise%28%29.squaredNorm%28%29%20%3D%20%5Cbegin%7Bbmatrix%7D%201%20%26%20505%20%26%2032%20%26%2050%20%5Cend%7Bbmatrix%7D)
+
+- 最后，minCoeff(&index)用来获取距离最小的列。
