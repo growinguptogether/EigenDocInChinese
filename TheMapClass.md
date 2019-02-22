@@ -87,4 +87,50 @@ MapTypeConst m2mapconst(p,m2.size()); // a readonly access for m2
 
 cout << "m1: " << m1 << endl;
 cout << "m2: " << m2 << endl;
+cout << "Squared euclidean distance: " << (m1 - m2).squaredNorm() << endl;
+
+cout << "Squared euclidean distance, using map: " << (m1-m2map).squaredNorm() << endl;
+m2map(3) = 7; // this will change m2, since they share the same array
+cout << "Update m2: " << m2 << endl;
+cout << "m2 coefficient 2, constant accessor: " << m2mapconst(2) << endl;
+/* m2mapconst(2) = 5; */ // this yields compile-time error
+
+// output
+m1:   0.68 -0.211  0.566  0.597  0.823
+m2: -0.605  -0.33  0.536 -0.444  0.108
+Squared euclidean distance: 3.26
+Squared euclidean distance, using map: 3.26
+Updated m2: -0.605  -0.33  0.536      7  0.108
+m2 coefficient 2, constant accessor: 0.536
+```
+
+所有的Eigen函数去访问Map对象的时候，和使用Eigen的其它类型一样。但是，
+当书写Eigen类型作为参数的函数的时候，类型转换并不会自动发生：Map类型并不与Dense类型完全相同。
+详细见：`Writing Functions Taking Eigen Types as Parameters` TODO add link
+
+## 改变Mapped数组
+
+在声明Map对象之后，也能够改变Map，使用c++的`placement new`格式，用来在已经分配的内存中，
+创建对象。
+
+```c++
+int data[] = {1,2,3,4,5,6,7,8,9};
+Map<RowVectorXi> v(data,4);
+cout << "The mapped vector v is: " << v << "\n";
+new (&v) Map<RowVectorXi>(data+4,5);
+cout << "Now v is: " << v << "\n";
+```
+
+这个过程并没有调用内存分配，语法的格式从现有的内存中构建对象。
+
+这种实现方式，可以在实现不知道mapped数组在内存中具体位置的时候声明一个Map对象。
+
+```c++
+Map<Matrix3f> A(NULL); // don't try to use this matrix yet!
+VectorXf b(n_matrices);
+for (int i = 0; i < n_matrices; i++)
+{
+    new (&A) Map<Matrix3f>(get_matrix_pointer(i));
+    b(i) = A.trace();
+}
 ```
