@@ -12,7 +12,9 @@
 - [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
 - [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
 - [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
+- [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
 - [Doing] 2.8 Reshape and Slicing
+- [Doing-stupidgrass] 2.9 Aliasing
 - [ ] 2.10 Storage orders
 - [ ] 2.11 Alignment issues
 - [ ] 2.11.1 Explanation of the assertion on unaligned arrays
@@ -22,6 +24,7 @@
 - [ ] 2.11.5 Passing Eigen objects by value to functions
 - [ ] 2.11.6 Compiler making a wrong assumption on stack alignment
 - [ ] 2.12 Catalog of coefficient-wise math functions
+- [Doing-stupidgrass] 2.13 Quick reference guide
 - [ ] 3. Dense linear problems and decompositions
 - [ ] 3.1 Linear algebra and decompositions
 - [ ] 3.2 Catalogue of dense decompositions
