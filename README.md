@@ -1,6 +1,6 @@
 # Introduction
 
-本项目是针对**Eigen3.3.7**进行的翻译项目，其中不包括对Reference和Class List的翻译。Eigen3.3.7对应的官方文档的地址为：http://eigen.tuxfamily.org/dox/
+本项目是针对**Eigen3.3.7**进行的翻译项目，其中不包括对Reference和Class List的翻译。Eigen3.3.7对应的官方文档的地址为：http://eigen.tuxfamily.org/dox/ 。如果该网址不能访问，可以直接下载[Eigen的英文文档](./eigen-doc-eng.tgz)
 
 ## Content
 
