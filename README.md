@@ -13,9 +13,9 @@
 - [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
 - [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
 - [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
-- [Doing] 2.8 Reshape and Slicing
+- [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
 - [Doing-stupidgrass] 2.9 Aliasing
-- [ ] 2.10 Storage orders
+- [Doing-wilson] 2.10 Storage orders
 - [ ] 2.11 Alignment issues
 - [ ] 2.11.1 Explanation of the assertion on unaligned arrays
 - [ ] 2.11.2 Fixed-size vetorizable Eigen objects
