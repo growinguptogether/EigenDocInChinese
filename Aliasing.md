@@ -190,3 +190,6 @@ Doing everything at once yields
 
 通常情况下，如果右边表达式(i,j)位置的值仅仅依赖于左边表达式对应(i,j)位置的值，那么这个赋值操作是安全的。
 这种情况下，就不需要对等号右边的表达式就不需要提前显示执行。
+
+- previous [Reshape and Slicing](./ReshapeAndSlicing)
+- next []()

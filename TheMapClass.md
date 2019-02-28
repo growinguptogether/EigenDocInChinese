@@ -134,3 +134,5 @@ for (int i = 0; i < n_matrices; i++)
     b(i) = A.trace();
 }
 ```
+- previous: []()
+- next: [Reshape and Slicing](./ReshapeAndSlicing)
