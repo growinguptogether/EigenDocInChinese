@@ -191,5 +191,52 @@ Doing everything at once yields
 通常情况下，如果右边表达式(i,j)位置的值仅仅依赖于左边表达式对应(i,j)位置的值，那么这个赋值操作是安全的。
 这种情况下，就不需要对等号右边的表达式就不需要提前显示执行。
 
-- previous [Reshape and Slicing](./ReshapeAndSlicing)
-- next []()
+
+## 混淆和矩阵操作
+
+矩阵乘法是Eigen操作中唯一一个默认包容混淆的操作。在这个条件下，目前矩阵的大小是不变的。
+因此，如果`matA`是方阵，那么`matA = matA * matA;`是安全的。Eigen中其他的操作，
+均是没有考虑到混淆的。
+
+```c++
+MatrixXf matA(2,2);
+matA << 2,0,0,2;
+matA = matA * matA;
+cout << matA;
+
+// output
+4 0
+0 4
+```
+
+但是，这个过程是有代价的。当执行矩阵乘法的时候，Eigen将矩阵相乘后的结果存储到一个临时变量中，
+然后在赋值给等号左边的matA。这是没有问题的，但是当赋值给另一个矩阵变量的时候，如`matB = matA * matA`，
+直接将乘积的结果赋值给matB,比先得到临时变量在进行赋值要高效。
+
+用户可以使用`noalias()`函数，处理没有混淆的情况，如`matB.noalias() = matA * matA`。
+这样就允许Eigen直接将乘积的结果赋值给matB。
+
+```c++
+MatrixXf matA(2,2), matB(2,2);
+matA << 2,0,0,2;
+
+// Simple but not quite as efficient
+matB = matA * matA;
+cout << matB << endl << endl;
+
+// More complicated but also more efficient
+matB.noalias() = matA * matA;
+cout << matB;
+
+// output
+4 0
+0 4
+
+4 0
+0 4
+```
+
+## 内容导航
+
+- 前一章 [Reshape and Slicing](./ReshapeAndSlicing)
+- 后一章 []()
