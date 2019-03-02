@@ -15,7 +15,7 @@
 - [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
 - [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
 - [Doing-stupidgrass] 2.9 Aliasing
-- [Doing-wilson] 2.10 Storage orders
+- [x] 2.10 [Storage orders(lack of links)](./StorageOrder)
 - [ ] 2.11 Alignment issues
 - [ ] 2.11.1 Explanation of the assertion on unaligned arrays
 - [ ] 2.11.2 Fixed-size vetorizable Eigen objects
