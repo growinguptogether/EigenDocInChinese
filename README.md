@@ -14,7 +14,7 @@
 - [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
 - [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
 - [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
-- [Doing-stupidgrass] 2.9 Aliasing
+- [x] 2.9 [Aliasing - 混淆](./Aliasing.md)
 - [x] 2.10 [Storage orders(lack of links)](./StorageOrders.md)
 - [ ] 2.11 Alignment issues
 - [ ] 2.11.1 Explanation of the assertion on unaligned arrays
@@ -26,7 +26,7 @@
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [Doing-stupidgrass] 2.13 Quick reference guide
 - [ ] 3. Dense linear problems and decompositions
-- [ ] 3.1 Linear algebra and decompositions
+- [Doing-stupidgrass] 3.1 Linear algebra and decompositions
 - [ ] 3.2 Catalogue of dense decompositions
 - [ ] 3.3 Solving linear least squares systems
 - [ ] 3.4 Inplace matrix decompositions
