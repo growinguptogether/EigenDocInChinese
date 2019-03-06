@@ -27,7 +27,7 @@
 - [Doing-stupidgrass] 2.13 Quick reference guide
 - [ ] 3. Dense linear problems and decompositions
 - [Doing-stupidgrass] 3.1 Linear algebra and decompositions
-- [ ] 3.2 Catalogue of dense decompositions
+- [Doing-zhoulv] 3.2 Catalogue of dense decompositions
 - [ ] 3.3 Solving linear least squares systems
 - [ ] 3.4 Inplace matrix decompositions
 - [ ] 3.5 Benchmark of dense decompositions
