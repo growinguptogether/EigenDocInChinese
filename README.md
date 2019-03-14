@@ -16,7 +16,7 @@
 - [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
 - [x] 2.9 [Aliasing - 混淆](./Aliasing.md)
 - [x] 2.10 [Storage orders(lack of links)](./StorageOrders.md)
-- [ ] 2.11 Alignment issues
+- [Doing-wilson] 2.11 Alignment issues
 - [ ] 2.11.1 Explanation of the assertion on unaligned arrays
 - [ ] 2.11.2 Fixed-size vetorizable Eigen objects
 - [ ] 2.11.3 Structures Having Eigen Members
