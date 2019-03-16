@@ -3,14 +3,14 @@
 > ref: 
 ---
 嘿！你会来看这一节的内容大概是因为你的程序出现了断言错误而终止运行的问题，像下面这个例子：
-`
+```
 my_program: path/to/eigen/Eigen/src/Core/DenseStorage.h:44:
 Eigen::internal::matrix_array<T, Size, MatrixOptions, Align>::internal::matrix_array()
 [with T = double, int Size = 2, int MatrixOptions = 2, bool Align = true]:
 Assertion `(reinterpret_cast<size_t>(array) & (sizemask)) == 0 && "this assertion
 is explained here: http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
      READ THIS WEB PAGE !!! ****"' failed.
-`
+```
 已知会引起这个错误的原因有4种。请继阅读下去，了解这些原因然后学会如何解决这个错误。
 
 ## 在我的代码里究竟是哪里引发了这个错误？
