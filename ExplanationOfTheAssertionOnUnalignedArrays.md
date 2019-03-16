@@ -3,24 +3,25 @@
 > ref: 
 ---
 嘿！你会来看这一节的内容大概是因为你的程序出现了断言错误而终止运行的问题，像下面这个例子：
+`
 my_program: path/to/eigen/Eigen/src/Core/DenseStorage.h:44:
 Eigen::internal::matrix_array<T, Size, MatrixOptions, Align>::internal::matrix_array()
 [with T = double, int Size = 2, int MatrixOptions = 2, bool Align = true]:
 Assertion `(reinterpret_cast<size_t>(array) & (sizemask)) == 0 && "this assertion
 is explained here: http://eigen.tuxfamily.org/dox-devel/group__TopicUnalignedArrayAssert.html
      READ THIS WEB PAGE !!! ****"' failed.
-
+`
 已知会引起这个错误的原因有4种。请继阅读下去，了解这些原因然后学会如何解决这个错误。
 
 ## 在我的代码里究竟是哪里引发了这个错误？
 
 首先，你需要做的是找出是哪一段代码引起了这个断言错误。大致扫一遍，这个错误信息似乎没什么帮助，它只是引导你去查看Eigen里的一份文档。即使你的程序发生了崩溃，如果你有办法复现这个问题，那么你可以借助随便哪个调试器来追溯到问题代码。例如，如果你使用的是gcc编译器，那么你可以像下面的例子这样使用gdb调试器来定位问题：
-`
+```
 $ gdb ./my_program          # Start GDB on your program
 > run                       # Start running your program
 ...                         # Now reproduce the crash!
 > bt                        # Obtain the backtrace
-`
+```
 现在，你准确定位到引发这个问题的代码了，继续阅读下面的内容，了解你需要如何修复这个错误。
 
 ## 原因1：结构体的成员变量包含了Eigen对象
@@ -81,9 +82,9 @@ void foo()
 ## 我不在乎量优化的问题，我只想知道要如何解决这个错误？
 
 三个可能的方案：
-    - 在使用[Matrix][Array][Quaterntion]等等出现问题的时候使用DontAlign选项。这样，[Eigen]不会尝试对对象进行对齐，也不会预设任何特殊的对齐方式。带来的缺点是，你可能会为非对齐对象读写操作付出额外代价，但是在现代CPU上，这个代价通常不存在或者微小到几乎可以无视。[这里]()是一个例子。
-    - 定义[EIGEN_DONT_ALIGN_STATICALLY]()宏。这会禁用所有16位（或更多位）静态对齐的代码，但是堆的16位（或更高）的对齐会得到保留。这会导致确定大小的对象（例如Matrix4d)以非对齐方式量化存储（这由宏EIGEN_UNALIGNED_VECTORIZE控制），同时对于动态大小对象（像MatrixXd）的量化不改变。但是请注意这会破坏静态对齐带来的ABI特性。
-    - 或者同时定义[EIGEN_DONT_VECTORIZE]()与EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT两个宏。这会保留16位对齐同时保留ABI特性，但是完全禁用量化。
+  - 在使用[Matrix],[Array],[Quaterntion]等等出现问题的时候使用DontAlign选项。这样，[Eigen]不会尝试对对象进行对齐，也不会预设任何特殊的对齐方式。带来的缺点是，你可能会为非对齐对象读写操作付出额外代价，但是在现代CPU上，这个代价通常不存在或者微小到几乎可以无视。[这里]()是一个例子。
+  - 定义[EIGEN_DONT_ALIGN_STATICALLY]()宏。这会禁用所有16位（或更多位）静态对齐的代码，但是堆的16位（或更高）的对齐会得到保留。这会导致确定大小的对象（例如Matrix4d)以非对齐方式量化存储（这由宏EIGEN_UNALIGNED_VECTORIZE控制），同时对于动态大小对象（像MatrixXd）的量化不改变。但是请注意这会破坏静态对齐带来的ABI特性。
+  - 或者同时定义[EIGEN_DONT_VECTORIZE]()与EIGEN_DISABLE_UNALIGNED_ARRAY_ASSERT两个宏。这会保留16位对齐同时保留ABI特性，但是完全禁用量化。
 
 如果你想知道为什么定义EIGEN_DONT_VECTORIZE不直接禁用16位对齐和这个断言，以下是解释：
 我们没有禁用这个断言是因为原来禁用量化的机器可以运行的程序，在机器开启量化的时候程序会突然崩溃。我们没有禁用16位对齐，因为如果禁用会导致量化过和未量化的代码都无法兼容ABI特性。而ABI特性非常重要，哪怕是针对那些只开发自用应用的程序员来说，例如也许你会希望在同一个应用里分别使用量化路径和非量化路径。
