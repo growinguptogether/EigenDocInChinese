@@ -74,7 +74,7 @@ ArrayWrapper<Matrix4f> m1a(m1);    // m1a和m1，他们共享相同的内容
 MatrixWrapper<Array44f> a1m(a1);
 ```
 
-## 基本的矩阵操作
+### 基本的矩阵操作
 
 ```c++
 // 1. 构造
@@ -160,6 +160,124 @@ matrix.coeffRef(i,j)
 object = expression;
 object_of_float = expression_of_double.cast<float>();
 ```
+
+### 预定义的矩阵
+
+```c++
+// 固定大小的矩阵或向量
+typedef {Matrix3f|Array33f} FixedXD;
+FixedXD x;
+
+x = FixedXD::Zero();
+x = FixedXD::Ones();
+x = FixedXD::Constant(value);
+x = FixedXD::Random();
+x = FixedXD::LinSpaced(size, low, high);
+x.setZero();
+x.setOnes();
+x.setConstant(value);
+x.setRandom();
+x.setLinSpaced(size, low, high);
+
+x = FixedXD::Identity();
+x.setIdentity();
+
+Vector3f::UintX();
+Vector3f::UintY();
+Vector3f::UintZ();
+
+// 动态大小矩阵
+typedef {Matrixf|ArrayXXf} Dynamic2D;
+Dynamic2D x;
+
+x = Dynamic2D::Zero(rows, cols);
+x = Dynamic2D::Ones(rows, cols);
+x = Dynamic2D::Constant(rows, cols, value);
+x = Dynamic2D::Random(rows, cols);
+x.setZero(rows, cols);
+x.setOnes(rows, cols);
+x.setConstant(rows, cols, value);
+x.setRandom(rows, cols);
+
+x = Dynamic2D::Identity(rows, cols);
+x.setIdentity(rows, cols);
+
+// 动态大小的向量
+typedef {VectorXf|ArrayXf} Dynamic1D;
+Dynamic1D x;
+x = Dynamic1D::Zero(size);
+x = Dynamic1D::Ones(size);
+x = Dynamic1D::Constant(size, value);
+x = Dynamic1D::Random(size);
+x = Dynamic1D::LinSpaced(size, low, high);
+x.setZero(size);
+x.setOnes(size);
+x.setConstant(size, value);
+x.setRandom(size);
+x.setLinSpaced(size, low, high);
+
+vectorXf::Unit(size,i);
+VectorXf::Unit(4,1) == Vector4f(0,1,0,0) == Vector4f::UnitY()
+```
+
+### 外部数组类型到Eigen类型的映射
+
+```c++
+// 具有连续内存空间
+float data[] = {1,2,3,4};
+Map<Vector3f> v1(data);
+Map<ArrayXf> v2(data,3);
+Map<Array22f> m1(data);
+Map<MatrixXf> m2(data,2,2);
+
+// stride间隔的使用
+float data[] = {1,2,3,4,5,6,7,8,9};
+Map<VectorXf,0,InnerStride<2>> v1(data,3);                    // v = [1,3,5]
+Map<VectorXf,0,InnerStride<>>  v2(data,3,InnerStride<>(3));   // = [1,4,7]
+Map<MatrixXf,0,OuterStride<3>> m2(data,2,3);                  // 两个结果都是 [1,4,7]
+Map<MatrixXf,0,OuterStride<>>  m1(data,2,3,OuterStride<>(3)); //              [2,5,8]
+```
+
+## 算术操作
+
+```c++
+// 加减
+mat3 = mat1 + mat2;           mat3 += mat1;
+mat3 = mat1 - mat2;           mat3 -= mat1;
+
+// 标量操作
+mat3 = mat1 * s1;             mat3 *= s1;           mat3 = s1 * mat1;
+mat3 = mat1 / s1;             mat3 /= s1;
+
+// 矩阵/向量乘法*
+col2 = mat1 * col1;
+row2 = row1 * mat1;           row1 *= mat1;
+mat3 = mat1 * mat2;           mat3 *= mat1;
+
+// 转置/共厄矩阵
+mat1 = mat2.transpose();      mat1.transposeInPlace();
+mat1 = mat2.adjoint();        mat1.adjointInPlace();
+
+// 点积/内积
+scalar = vec1.dot(vec2);
+scalar = col1.adjoint() * col2;
+scalar = (col1.adjoint() * col2).value();
+
+// 外积
+mat = col1 * col2.transpose();
+
+// 范式/归一化
+scalar = vec1.norm();     scalar = vec1.squareNorm();
+vec2 = vec1.normalized(); vec1.normalize();
+
+// 叉乘
+#include <Eigen/Geometry>
+vec3 = vec1.cross(vec2);
+```
+
+## coefficient-wise及数组操作
+
+
 
 ## 分解详解
 
