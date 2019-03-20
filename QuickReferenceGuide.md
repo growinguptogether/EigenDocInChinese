@@ -277,6 +277,118 @@ vec3 = vec1.cross(vec2);
 
 ## coefficient-wise及数组操作
 
+除了上面提到的操作之外，Eigen还支持大量的coefficient-wise操作和函数。
+大多数明确的指出，针对数组才是有意义的。下面的操作适用于数组，以及
+通过array()接口调用的矩阵和向量。
+
+```c++
+// 算术操作
+array1 * array2     array1 / array2     array1 *= array2    array1 /= array2
+array1 + scalar     array1 - scalar     array1 += scalar    array1 -= scalar
+
+// 比较操作
+array1 < array2     array1 > array2     array1 < scalar     array1 > scalar
+array1 <= array2    array1 >= array2    array1 <= scalar    array1 >= scalar
+array1 == array2    array1 != array2    array1 == scalar    array1 != scalar
+array1.min(array2)  array1.max(array2)  array1.min(scalar)  array1.max(scalar)
+
+// 立方，平方，三角函数等
+array1.abs2()
+array1.abs()                  abs(array1)
+array1.sqrt()                 sqrt(array1)
+array1.log()                  log(array1)
+array1.log10()                log10(array1)
+array1.exp()                  exp(array1)
+array1.pow(array2)            pow(array1,array2)
+array1.pow(scalar)            pow(array1,scalar)
+                              pow(scalar,array2)
+array1.square()
+array1.cube()
+array1.inverse()
+array1.sin()                  sin(array1)
+array1.cos()                  cos(array1)
+array1.tan()                  tan(array1)
+array1.asin()                 asin(array1)
+array1.acos()                 acos(array1)
+array1.atan()                 atan(array1)
+array1.sinh()                 sinh(array1)
+array1.cosh()                 cosh(array1)
+array1.tanh()                 tanh(array1)
+array1.arg()                  arg(array1)
+array1.floor()                floor(array1)
+array1.ceil()                 ceil(array1)
+array1.round()                round(aray1)
+array1.isFinite()             isfinite(array1)
+array1.isInf()                isinf(array1)
+array1.isNaN()                isnan(array1)
+```
+
+下面的操作适用于所有的表达式（矩阵、向量、数组）
+
+```c++
+mat1.real();  real(array1);
+mat1.imag();  imag(array1);
+mat1.conjugate(); conj(array1);
+```
+
+对于矩阵和向量，有一些可以通过cwise方法实现。
+
+``` 
+MatrixAPI                                     通过数组转换
+mat1.cwiseMin(mat2) mat1.cwiseMin(scalar)     mat1.array().min(mat2.array())  mat1.array().min(scalar)
+mat1.cwiseMax(mat2) mat1.cwiseMax(scalar)     mat1.array().max(mat2.array())  mat1.array().max(scalar)
+mat1.cwiseAbs2()                              mat1.array().abs2()
+mat1.cwiseAbs()                               mat1.array().abs()
+mat1.cwiseSqrt()                              mat1.array().sqrt()
+mat1.cwiseInverse()                           mat1.array().inverse()
+mat1.cwiseProduct(mat2)                       mat1.array() * mat2.array()
+mat1.cwiseQuotient(mat2)                      mat1.array() / mat2.array()
+mat1.cwiseEqual(mat2) mat1.cwiseEqual(scalar) mat1.array() == mat2.array()  mat1.array() == scalar 
+mat1.cwiseNotEqual(mat2)                      mat1.array() != mat2.array()
+```
+
+上述两个api之间的主要区别是，cwise方法，返回的是一个矩阵世界的表达式，
+而array方法返回的是数组表达式。array方法，并没有什么开销，知识改变了数据解析方式。
+
+也可以很方便的使用用户定义函数
+
+```c++
+mat1.unaryExpr(std::ptr_fun(foo));
+mat1.unaryExpr(std::ref(foo));
+mat1.unaryExpr([](double x) {return foo(x);});
+```
+
+## Reductions
+
+Eigen提供了一些reductions的函数，如：`minCoeff()`, `maxCoeff()`, `sum()`, `prod()`, `trace()`, `norm()`,
+`squaredNorm()`,`all()`,`any()`。所有的reduction函数都可以基于矩阵，基于行或基于列进行操作。
+
+```c++
+MatrixXf mat(3,3);
+mat << 5,3,1,2,7,8,9,4,6;
+
+mat.minCoeff(); // 1 
+mat.colwise().minCoeff(); // 2 3 1 
+mat.rowwise().minCoeff(); // [1;2;4]
+```
+
+minCoeff和maxCoeff特殊的用法：
+
+```c++
+int i,j;
+s = vector.minCoeff(&i);   // s == vector[i]
+s = matrix.maxCoeff(&i,&j); // s == matrix(i,j)
+```
+
+all和any的用法：
+
+```c++
+if ((array1 > 0).all()) { ... } // 如果array1中所有元素都大于0
+if ((array1 < array2).any()) { ... } // 如果有一个对应的元素满足array1(i,j) < array2(i,j)
+```
+
+## 子矩阵
+
 
 
 ## 分解详解
