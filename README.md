@@ -19,7 +19,7 @@
 - [x] 2.11 [Alignment issues](./AlignmentIssue.md)
 - [x] 2.11.1 [Explanation of the assertion on unaligned arrays](./ExplanationOfTheAssertionOnUnalignedArrays.md)
 - [x] 2.11.2 [Fixed-size vetorizable Eigen objects](./FixedSizeVetorizableEigenObjects.md)
-- [wilson] 2.11.3 Structures Having Eigen Members
+- [wilson] 2.11.3 [Structures Having Eigen Members](./StructuresHavingEigenMembers.md)
 - [wilson] 2.11.4 Using STL Containers with Eigen
 - [wilson] 2.11.5 Passing Eigen objects by value to functions
 - [wilson] 2.11.6 Compiler making a wrong assumption on stack alignment
