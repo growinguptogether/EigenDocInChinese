@@ -28,7 +28,7 @@
 - [ ] 3. Dense linear problems and decompositions
 - [Doing-stupidgrass] 3.1 Linear algebra and decompositions
 - [ ] 3.2 Catalogue of dense decompositions
-- [ ] 3.3 Solving linear least squares systems
+- [Doing-tianzhiyi] 3.3 Solving linear least squares systems
 - [ ] 3.4 Inplace matrix decompositions
 - [ ] 3.5 Benchmark of dense decompositions
 - [x] 4. [Sparse linear algebra] - 稀疏线性代数
