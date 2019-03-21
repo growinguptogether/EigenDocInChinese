@@ -389,6 +389,143 @@ if ((array1 < array2).any()) { ... } // 如果有一个对应的元素满足arra
 
 ## 子矩阵
 
+读写访问矩阵中的一行或一列：
+
+```c++
+mat1.row(i) = mat2.col(j);
+mat1.col(j1).swap(mat1.col(j2));
+```
+
+子向量的读写访问：
+
+```
+默认的版本            编译时大小确定
+vec1.head(n)          vec1.head<n>()              获取前n个元素
+vec1.tail(n)          vec1.tail<n>()              获取最后n个元素
+vec1.segment(pos,n)   vec1.segment<n>(pos)        从位置p开始获取n个元素
+```
+
+子矩阵的读写访问：
+
+``` 
+mat1.block(i,j,rows,cols)                    mat1.block<rows,cols>(i,j)
+mat1.topLeftCorner(rows,cols)                mat1.topLeftCorner<rows,cols>()
+mat1.topRightCorner(rows,cols)               mat1.topRightCorner<rows,cols>()
+mat1.bottomLeftCorner(rows,cols)             mat1.bottomLeftCorner<rows,cols>()
+mat1.bottomRightCorner(rows,cols)            mat1.bottomRightCorner<rows,cols>()
+
+mat1.topRows(rows)                           mat1.topRows<rows>()
+mat1.bottomRows(rows)                        mat1.bottomRows<rows>()
+mat1.leftCols(cols)                          mat1.leftCols<cols>()
+mat1.rightCols(cols)                         mat1.rightCols<cols>()
+```
+
+## 其他操作
+
+### 反转
+
+向量，矩阵的行列都可以反转：
+
+```c++
+vec.reverse(); mat.colwise().reverse(); mat.rowwise().reverse();
+vec.reverseInPlace();
+```
+
+### 重复
+
+向量，矩阵的行列都可以进行照着特定方向重复。
+
+```c++
+vec.replicate(times);
+vec.replicate<Times>();
+
+mat.replicate(vertical_times, horizontal_times);
+mat.replicate<VerticalTimes, HorizontalTimes>();
+
+mat.colwise().replicate(vertical_times, horizontal_times);
+mat.colwise().replicate<VerticalTimes, HorizontalTimes>();
+
+mat.rowwise().replicate(vertical_times, horizontal_times);
+mat.rowwise().replicate<VerticalTimes, HorizontalTimes>();
+```
+
+## 对角矩阵，三角矩阵和自共厄矩阵
+
+### 对角矩阵
+
+```c++
+mat1 = vec1.asDiagnoal();     // 向量转换成对角矩阵
+DiagonalMatrix<Scalar, SizeAtCompileTime> diag1(size);  // 声明对角矩阵
+diag1.diagonal() = vector;
+
+// 访问对角矩阵
+vec1 = mat1.diagonal();
+mat1.diagonal() = vec1;    // 主对角元素
+
+vec1 = mat1.diagonal(+n);  mat1.diagonal(+n) = vec1; // 上对角矩阵，第0行，第n列，开始的对角矩阵
+vec1 = mat1.diagonal(-n);  mat1.diagonal(-n) = vec1; // 刚好与上面相反
+
+vec1 = mat1.diagonal<1>(); mat.diagonal<1>() = vec1; // 含义于上面相同
+vec1 = mat1.diagonal<-2>(); mat.diagonal<-2>() = vec1; 
+
+// 相乘与求逆
+mat3 = scalar * diag1 * mat1;
+mat3 += scalar * mat1 * vec1.asDiagnoal();
+mat3 = vec1.asDiagnoal().inverse() * mat1;
+mat3 = mat1 * diag1.inverse();
+```
+
+### 三角矩阵
+
+TriangularView用来表示稠密矩阵中的三角部分，用来执行一些优化操作。另一半的三角，
+将不再被使用，也无法用来存储其他额外的信息。
+
+> 注意：
+> 如果triangularView模板成员函数被用成一个带有模板参数的对象的时候，需要template关键字
+
+```c++
+// 用来表示特定形式的矩阵
+m.triangularView<Xxx>(); // Xxx = Upper, Lower, StrictlyUpper, StrictlyLower, UnitUpper, UnitLower
+
+// 写入特定的部分
+m1.triangularView<Eigen::Lower>() = m2 + m3;
+
+// 将稠密矩阵的相对的一个三角部分赋值位0
+m2 = m1.triangularView<Eigen::UnitUpper>();
+
+// 乘法
+m3 += s1 * m1.adjoint().triangularView<Eigen::UnitUpper>() * m2;
+m3 -= s1 * m2.conjugate() * m1.adjoint().triangularView<Eigen::Lower>();
+
+// 解线性方程
+L1.triangularView<Eigen::UintLower>().solveInPlace(M2);              // M2 = L1^-1 * M2
+L1.triangularView<Eigen::Lower>().adjoint().solveInPlace(M3);        // M3 = L1^(*-1) * M3 
+U1.triangularView<Eigen::Upper>().soleInPlace<OnTheRight>(M4);       // M4 = M4 * U^-1
+```
+
+### 对称/自共厄
+
+正如三角矩阵，你可以将三角矩阵进行共厄，得到自共厄矩阵。同样的，三角矩阵的一般是不会被使用到的。
+
+> 注意：
+> selfadjiontView()模板函数使用的时候带有模板参数的化也需要template关键字。
+
+```c++
+// 转换成稠密矩阵
+m2 = m.selfadjiontView<Eigen::Lower>();
+
+// 与普通矩阵或向量相乘
+m3 = s1 * m1.conjugate().selfadjiontView<Eigen::Upper>() * m3;
+m3 -= s1 * m3.adjoint() * m1.selfadjointView<Eigen::Lower>();
+
+M1.selfadjointView<Eigen::Upper>().rankUpdate(M2,s1); // upper(M1) += s1M2M2^{*}
+M1.selfadjointView<Eigen::Lower>().rankUpdate(M2.adjoint(),-1); // lower(M1) -= M2^{*}*M2
+
+M.selfadjointView<Eigen::Upper>().rankUpdate(u,v,s); // rank2: M += suv* + svu*
+
+m2 = m1.selfadjointView<Eigen::Upper>().llt().solve(m2); // 标准cholesky因子分解，求解线性方程 M2 = M1^{-1} M2
+m2 = m1.selfadjointView<Eigen::Lower>().ldlt().solve(m2); // 使用pivoting 的 Cholesky 因子分解
+```
 
 
 ## 分解详解
