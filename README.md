@@ -19,10 +19,10 @@
 - [x] 2.11 [Alignment issues](./AlignmentIssue.md)
 - [x] 2.11.1 [Explanation of the assertion on unaligned arrays](./ExplanationOfTheAssertionOnUnalignedArrays.md)
 - [x] 2.11.2 [Fixed-size vetorizable Eigen objects](./FixedSizeVetorizableEigenObjects.md)
-- [wilson] 2.11.3 [Structures Having Eigen Members](./StructuresHavingEigenMembers.md)
-- [wilson] 2.11.4 [Using STL Containers with Eigen](./UsingSTLContainersWithEigen.md)
-- [wilson] 2.11.5 Passing Eigen objects by value to functions
-- [wilson] 2.11.6 Compiler making a wrong assumption on stack alignment
+- [x] 2.11.3 [Structures Having Eigen Members](./StructuresHavingEigenMembers.md)
+- [x] 2.11.4 [Using STL Containers with Eigen](./UsingSTLContainersWithEigen.md)
+- [x] 2.11.5 [Passing Eigen objects by value to functions](./PassingByValue.md)
+- [wilson] 2.11.6 [Compiler making a wrong assumption on stack alignment](./WrongStackAlignment.md)
 - [ ] 2.12 Catalog of coefficient-wise math functions
 - [x] 2.13 [Quick reference guide](./QuickReferenceGuide.md)
 - [ ] 3. Dense linear problems and decompositions

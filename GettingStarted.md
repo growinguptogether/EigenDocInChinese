@@ -48,7 +48,7 @@ int main()
 
 ## 第一个程序的解释
 
-Eigen头文件中定义了很多类型，但是对于简单的程序一般只要使用`MatrixXd`类型就可以了。这个类型可以用来表示任 大小的矩阵（MatrixXd中的X），其中每个元素的类型是double类型（MatrixXd中的d）。参考[快速指导]（TODO： ADD LINK）， 里面包含了你能用来描述矩阵对象的各种类型的概述。
+Eigen头文件中定义了很多类型，但是对于简单的程序一般只要使用`MatrixXd`类型就可以了。这个类型可以用来表示任 大小的矩阵（MatrixXd中的X），其中每个元素的类型是double类型（MatrixXd中的d）。参考[快速指导](./QuickReferenceGuide.md)， 里面包含了你能用来描述矩阵对象的各种类型的概述。
 
 `Eigen/Dense`头文件中定义了MatrixXd类型的所有成员函数和相关类型。(详细可以在[头文件列表](Add Link)中查看)。所有Eigen头文件中定义的类和函数都在Eigen命名空间中。
 
@@ -118,6 +118,6 @@ v = \begin{bmatrix}
 
 花点时间继续读完[全部教程](./TheMatrixClass.md)是非常有必要的。
 
-但是如果你觉得没有必要，那么你可以直接查阅类文档和我们的快速参考指导（TODO addlink）。
+但是如果你觉得没有必要，那么你可以直接查阅类文档和我们的[快速参考指导](./QuickReferenceGuide.md)。
 
 - Next：[矩阵类](./TheMatrixClass.md)

@@ -78,12 +78,83 @@ public:
 
 ## 所以这其实是Eigen的一个bug？
 
-不，这不是我们的bug。这更多的是从C++98语言特性中继承过来的问题，而且好像在后来的版本中已经被解决了，具体请参看[这份文档](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2341.pdf)。
+不，这不是我们的bug。这更多的是从C++98语言特性中继承过来的问题，而且好像在后来的版本中已经得到修复了，详情请参看[这份文档](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2007/n2341.pdf)。
 
+## 我能否有选择的执行对齐（根据模板参数）？
 
+为了满足这种需求，我们提供了这样一个宏`EIGEN_MAKE_ALIGNED_OPERATOR_NEW_IF(NeedsToAlign)`。当`NeedToAlign`为真的时候，它跟`EIGEN_MAKE_ALIGNED_OPERATOR_NEW `的效果是一样的。如果`NeedToAlign`为假，它将使用默认分配器的对齐方式。
+示例：
+```cpp
+template<int n> class Foo
+{
+  typedef Eigen::Matrix<float,n,1> Vector;
+  enum { NeedsToAlign = (sizeof(Vector)%16)==0 };
+  ...
+  Vector v;
+  ...
+public:
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW_IF(NeedsToAlign)
+};
+...
+Foo<4> *foo4 = new Foo<4>; // foo4 is guaranteed to be 128bit-aligned
+Foo<3> *foo3 = new Foo<3>; // foo3 has only the system default alignment guarantee
+```
 
-[1]:https://github.com
-[othersolution]:https://github.com
-[vector2d]:https://github.com
-[Eigen]:https://github.com
-[Eigen::VectorXd]:https://github.com
+## 其他问题
+
+需要在每个类里面添加宏`EIGEN_MAKE_ALIGNED_OPERATOR_NEW`确实太麻烦了，所以你还有至少两种其他解决方案。
+
+### 禁用对齐
+---
+第一种方法是禁用固定大小成员的对齐要求：
+```cpp
+class Foo
+{
+  ...
+  Eigen::Matrix<double,2,1,Eigen::DontAlign> v;
+  ...
+};
+```
+这会导致使用v的时候无法使用量化。如果Foo里有函数多次访问这个成员，有可能v会被拷贝到一个对齐的临时vector中然后自动开启量化:
+```cpp
+void Foo::bar()
+{
+  Eigen::Vector2d av(v);
+  // use av instead of v
+  ...
+  // if av changed, then do:
+  v = av;
+}
+```
+
+### 私有结构
+---
+第二个解决方案是，将固定大小的对象放到私有结构体里，这样，Eigen对象会伴随类对象一起动态生成：
+```cpp
+struct Foo_d
+{
+  EIGEN_MAKE_ALIGNED_OPERATOR_NEW
+  Vector2d v;
+  ...
+};
+struct Foo {
+  Foo() { init_d(); }
+  ~Foo() { delete d; }
+  void bar()
+  {
+    // use d->v instead of v
+    ...
+  }
+private:
+  void init_d() { d = new Foo_d; }
+  Foo_d* d;
+};
+```
+
+这么做可见的好处是，Foo类不再需要为了解决对齐问题而刻意修改。但不足在于，你需要在堆分配的时候进行其他处理。
+
+[1]:https://github.com  
+[othersolution]:https://github.com  
+[vector2d]:https://github.com  
+[Eigen]:https://github.com  
+[Eigen::VectorXd]:https://github.com  

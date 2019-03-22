@@ -27,7 +27,7 @@ std::map<int,Eigen::Vector4f,std::less<int>,
 
 ## std::vector的场景
 
-当我们使用std::vector的时候这个问题会更严重（原因稍后解释），所以我们必须明确指定使用[Eigen::aligned_allocator][allocator]处理内存分配。在实际应用中，你**必须**使用使用[Eigen::aligned_allocator][allocator](不可以使用其他分配器)，**同时**添加引用`#include <Eigne/StdVector>`.
+当我们使用std::vector的时候这个问题会更严重（原因稍后解释），所以我们必须明确指定使用[Eigen::aligned_allocator][allocator]处理内存分配。在实际应用中，你**必须**使用使用[Eigen::aligned_allocator][allocator]（不可以使用其他分配器），**同时**添加引用`#include <Eigne/StdVector>`.
 范例如下：
 ```cpp
 #include <Eigen/StdVector>
@@ -37,7 +37,7 @@ std::vector<Eigen::Vector4f,Eigen::aligned_allocator<Eigen::Vector4f>>
 
 ## 替代方案——让std::vector适配Eigen类型
 ---
-推荐的替代方法已经在上文讲过了，std::vector提供了选项让你指定[Eigen][2]需要的对齐分配器。这么做的好处是，你不需要在所有使用std::vector的地方都指定Eigen::allocator。但是不便的一面是，你需要在每个类似于`std::vector<Vector2d>`的代码前加上指定分配器的声明。不然，编译器不知道指定的分配器，它将采用默认的std::allocator进行内存分配，然后你的程序很可能会崩溃。
+推荐的替代方法已经在上文讲过了，std::vector提供了选项让你指定[Eigen]需要的对齐分配器。这么做的好处是，你不需要在所有使用std::vector的地方都指定Eigen::allocator。但是不便的一面是，你需要在每个类似于`std::vector<Vector2d>`的代码前加上指定分配器的声明。不然，编译器不知道指定的分配器，它将采用默认的std::allocator进行内存分配，然后你的程序很可能会崩溃。
 范例如下：
 ```cpp
 #include <Eigen/StdVector>
@@ -47,6 +47,6 @@ std::vector<Eigen::Vector2d>
 ```
 **解释**：std::vector的resize()方法使用了Value_type声明（默认使用Value_type())。所以，以std::vector<Eigen::Vector4f>为例，一些Eigen::Vector4f对象会按值传递，这将造成对齐机制被绕过，最终导致在一个非对齐的地址上创建Eigen::Vector4f对象。为了避免上述情况，我们发现唯一的解决方案只有特化std::vector，让它为Eigen::Vector4f做一些小改变，然后就能很好的解决这个问题了。
 
-[1]：(./FixedSizeVetorizableEigenObjects.md)
-[2]:https://www.bing.com
-[allocator]：https://www.bing.com
+[1]:(./FixedSizeVetorizableEigenObjects.md)
+[Eigen]:https://www.bing.com
+[allocator]:https://www.bing.com

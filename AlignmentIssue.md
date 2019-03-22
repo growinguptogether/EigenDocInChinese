@@ -10,5 +10,5 @@
 * [固定大小可量化的Eigen对象](./FixedSizeVetorizableEigenObjects.md)
 * [包含Eigen对象作为成员变量的结构体](./StructuresHavingEigenMembers.md)
 * [在STL容器中使用Eigen对象](./UsingSTLContainersWithEigen.md)
-* [将Eigen对象作为函数参数]
-* [编译器在栈对齐的时候推断错误]
+* [将Eigen对象作为函数参数](./PassingByValue.md)
+* [编译器在栈对齐的时候推断错误](./WrongStackAlignment.md)
