@@ -36,4 +36,4 @@ __attribute__((force_align_arg_pointer)) void foo()
 这跟在所有函数前添加`force_align_arg_pointer`属性操作效果是等价的。
 这些全局方案使用起来很方便，但是请注意因为这些操作为每个函数都引入了额外的预处理/后处理指令，这可能导致程序运行速度的降低。
 
-[Eigen]:http://eigen.tuxfamily.org/dox/namespaceEigen.html
+[Eigen]: http://eigen.tuxfamily.org/dox/namespaceEigen.html

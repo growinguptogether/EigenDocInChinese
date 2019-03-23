@@ -47,6 +47,6 @@ std::vector<Eigen::Vector2d>
 ```
 **解释**：std::vector的resize()方法使用了Value_type声明（默认使用Value_type())。所以，以std::vector<Eigen::Vector4f>为例，一些Eigen::Vector4f对象会按值传递，这将造成对齐机制被绕过，最终导致在一个非对齐的地址上创建Eigen::Vector4f对象。为了避免上述情况，我们发现唯一的解决方案只有特化std::vector，让它为Eigen::Vector4f做一些小改变，然后就能很好的解决这个问题了。
 
-[1]:(./FixedSizeVetorizableEigenObjects.md)
+[1]:./FixedSizeVetorizableEigenObjects.md
 [Eigen]:https://www.bing.com
 [allocator]:https://www.bing.com
