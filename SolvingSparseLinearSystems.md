@@ -4,18 +4,20 @@
 
 ### 稀疏求解器列表
 Eigen目前提供了一系列的内置求解器以及外部求解器库的包装器，总结如下表：
-类名(头文件)  | 求解器类型|矩阵类型|性能相关特征|协议|备注
+类名(头文件)|求解器类型|矩阵类型|性能相关特征|协议|备注
 -|-|-|-|-|-
 SimplicialLLT<br>(#include<Eigen/SparseCholesky>)|LLT分解法|对称正定矩阵|最小化填充矩阵降低消耗内存和算术运算|LGPL|SimplicialLDLT更优
 SimplicialLDLT<br>(#include<Eigen/SparseCholesky>)|LDLT分解法|对称正定矩阵|最小化填充矩阵降低消耗内存和算术运算|LGPL|建议用于矩阵非常稀疏且不太大的问题(如二维泊松方程求解)
 SparseLU<br>(#include<Eigen/SparseLU>)|LU分解|方阵|矩阵最小化填充、快速密集迭代|MPL2|针对不规则格式的小型和大型矩阵求解问题进行了优化
 SparseQR<br>(#include<Eigen/SparseQR>)|QR分解|任何矩形阵|矩阵最小化填充|MPL2|建议用于最小二乘问题，具有基本的秩显功能
+
 ### 内置迭代求解器
-类名(头文件)  | 求解器类型|矩阵类型|支持的预处理器[默认]|协议|备注
+类名(头文件)|求解器类型|矩阵类型|支持的预处理器[默认]|协议|备注
 -|-|-|-|-|-
 ConjugateGradient<br>(#include<Eigen/IterativeLinearSolvers>)|经典迭代CG算法求解|对称正定矩阵|	IdentityPreconditioner, [DiagonalPreconditioner], IncompleteCholesky|MPL2|建议用于大型对称矩阵求解(如3D泊松方程求解)
 LeastSquaresConjugateGradient<br>(#include<Eigen/IterativeLinearSolvers>)|矩形最小二乘问题CG求解|矩形阵|IdentityPreconditioner, [LeastSquareDiagonalPreconditioner]|MPL2|在没有形成A'A的情况下求解min(A'Ax-b)^2
 BiCGSTAB<br>(#include<Eigen/IterativeLinearSolvers>)|双共轭梯度稳定迭代|方阵|IdentityPreconditioner, [DiagonalPreconditioner], IncompleteLUT|MPL2|要加速收敛，请使用IncompleteLUT预处理器进行尝试
+
 ### 外部求解器封装
 类名|模块|矩阵类型|性能相关特征|依赖、协议|备注
 -|-|-|-|-|-

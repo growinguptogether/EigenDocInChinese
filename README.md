@@ -33,7 +33,7 @@
 - [ ] 3.5 Benchmark of dense decompositions
 - [x] 4. [Sparse linear algebra] - 稀疏线性代数
 - [Doing-gaojing8500] 4.1 [Sparse matrix manipulations- 稀疏矩阵运算](./SparseMatrixManipulations.md) 
-- [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统(./SolvingSparseLinearSystems.md)
+- [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems - 求解稀疏线性系统](./SolvingSparseLinearSystems.md)
 - [Doing-gaojing8500] 4.3 [Matrix-free solvers] - 无矩阵求解器
 
 ## Attention
