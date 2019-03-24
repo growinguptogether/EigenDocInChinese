@@ -9,7 +9,7 @@ Eigen目前提供了一系列的内置求解器以及外部求解器库的包装器，总结如下表：
 SimplicialLLT<br>(#include<Eigen/SparseCholesky>)|LLT分解法|对称正定矩阵|最小化填充矩阵降低消耗内存和算术运算|LGPL|SimplicialLDLT更优
 SimplicialLDLT<br>(#include<Eigen/SparseCholesky>)|LDLT分解法|对称正定矩阵|最小化填充矩阵降低消耗内存和算术运算|LGPL|建议用于矩阵非常稀疏且不太大的问题(如二维泊松方程求解)
 SparseLU<br>(#include<Eigen/SparseLU>)|LU分解|方阵|矩阵最小化填充、快速密集迭代|MPL2|针对不规则格式的小型和大型矩阵求解问题进行了优化
-SparseQR<br>(#include<Eigen/SparseQR>)|QR分解|任何矩形阵|矩阵最小化填充|MPL2|建议用于最小二乘问题，具有基本的秩显功能
+SparseQR<br>(#include<Eigen/SparseQR>)|QR分解任何矩形阵|矩阵最小化填充|MPL2|建议用于最小二乘问题，具有基本的秩显功能
 
 ### 内置迭代求解器
 类名(头文件)|求解器类型|矩阵类型|支持的预处理器[默认]|协议|备注
