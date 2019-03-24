@@ -1,4 +1,4 @@
-# Introduction
+﻿# Introduction
 
 本项目是针对**Eigen3.3.7**进行的翻译项目，其中不包括对Reference和Class List的翻译。Eigen3.3.7对应的官方文档的地址为：http://eigen.tuxfamily.org/dox/ 。如果该网址不能访问，可以直接下载[Eigen的英文文档](./eigen-doc-eng.tgz)
 
@@ -33,7 +33,7 @@
 - [ ] 3.5 Benchmark of dense decompositions
 - [x] 4. [Sparse linear algebra] - 稀疏线性代数
 - [Doing-gaojing8500] 4.1 [Sparse matrix manipulations- 稀疏矩阵运算](./SparseMatrixManipulations.md) 
-- [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统((./SolvingSparseLinearSystems.md)
+- [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems] - 求解稀疏线性系统(./SolvingSparseLinearSystems.md)
 - [Doing-gaojing8500] 4.3 [Matrix-free solvers] - 无矩阵求解器
 
 ## Attention
