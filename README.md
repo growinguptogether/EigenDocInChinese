@@ -6,35 +6,35 @@
 
 - [x] 1. [Getting started - 入门开始](./GettingStarted.md)
 - [ ] 2. Dense matrix and array manipulation - 稠密矩阵和数组处理
-- [x] 2.1 [The Matrix class - 矩阵类](./TheMatrixClass.md)
-- [x] 2.2 [Matrix and vector arithmetic - 矩阵和向量运算](./MatrixandVectorArithmetic.md) 
-- [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
-- [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
-- [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
-- [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
-- [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
-- [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
-- [x] 2.9 [Aliasing - 混淆](./Aliasing.md)
-- [x] 2.10 [Storage orders(lack of links)](./StorageOrders.md)
-- [x] 2.11 [Alignment issues](./AlignmentIssue.md)
-- [x] 2.11.1 [Explanation of the assertion on unaligned arrays](./UnalignedArrayAssert.md)
-- [x] 2.11.2 [Fixed-size vetorizable Eigen objects](./FixedSizeVectorizable.md)
-- [x] 2.11.3 [Structures Having Eigen Members](./StructHavingEigenMembers.md)
-- [x] 2.11.4 [Using STL Containers with Eigen](./UsingSTLContainersWithEigen.md)
-- [x] 2.11.5 [Passing Eigen objects by value to functions](./PassingByValue.md)
-- [x] 2.11.6 [Compiler making a wrong assumption on stack alignment](./WrongStackAlignment.md)
-- [wilson] 2.12 [Catalog of coefficient-wise math functions](./CoeffwiseMathFunctions.md)
-- [x] 2.13 [Quick reference guide](./QuickReferenceGuide.md)
+  - [x] 2.1 [The Matrix class - 矩阵类](./TheMatrixClass.md)
+  - [x] 2.2 [Matrix and vector arithmetic - 矩阵和向量运算](./MatrixandVectorArithmetic.md) 
+  - [x] 2.3 [The Array class and coefficient-wise operations - 数组类和coefficient-wise操作](TheArrayClassAndCoefficientWiseOperations.md)
+  - [x] 2.4 [Block operations - 块运算](./BlockOperations.md)
+  - [x] 2.5 [Advanced initialization - 高阶初始化](./AdvancedInitialization.md)
+  - [x] 2.6 [Reductions, visitors and broadcasting](./ReductionsVisitorsAndBroadcasting.md)
+  - [x] 2.7 [Interfacing with raw buffers: the Map class - 与raw缓冲区对接：Map类](./TheMapClass.md)
+  - [x] 2.8 [Reshape and Slicing](./ReshapeAndSlicing.md)
+  - [x] 2.9 [Aliasing - 混淆](./Aliasing.md)
+  - [x] 2.10 [Storage orders(lack of links)](./StorageOrders.md)
+  - [x] 2.11 [Alignment issues](./AlignmentIssue.md)
+    - [x] 2.11.1 [Explanation of the assertion on unaligned arrays](./UnalignedArrayAssert.md)
+    - [x] 2.11.2 [Fixed-size vetorizable Eigen objects](./FixedSizeVectorizable.md)
+    - [x] 2.11.3 [Structures Having Eigen Members](./StructHavingEigenMembers.md)
+    - [x] 2.11.4 [Using STL Containers with Eigen](./UsingSTLContainersWithEigen.md)
+    - [x] 2.11.5 [Passing Eigen objects by value to functions](./PassingByValue.md)
+    - [x] 2.11.6 [Compiler making a wrong assumption on stack alignment](./WrongStackAlignment.md)
+  - [wilson] 2.12 [Catalog of coefficient-wise math functions](./CoeffwiseMathFunctions.md)
+  - [x] 2.13 [Quick reference guide](./QuickReferenceGuide.md)
 - [ ] 3. Dense linear problems and decompositions
-- [Doing-stupidgrass] 3.1 Linear algebra and decompositions
-- [ ] 3.2 Catalogue of dense decompositions
-- [Doing-tianzhiyi] 3.3 Solving linear least squares systems
-- [ ] 3.4 Inplace matrix decompositions
-- [ ] 3.5 Benchmark of dense decompositions
+  - [Doing-stupidgrass] 3.1 Linear algebra and decompositions
+  - [ ] 3.2 Catalogue of dense decompositions
+  - [Doing-tianzhiyi] 3.3 Solving linear least squares systems
+  - [x] 3.4 [Inplace matrix decompositions](./InplaceDecomposition.md)
+  - [wilson] 3.5 [Benchmark of dense decompositions](/DenseDecompositionBenchmark.md)
 - [x] 4. [Sparse linear algebra] - 稀疏线性代数
-- [Doing-gaojing8500] 4.1 [Sparse matrix manipulations- 稀疏矩阵运算](./SparseMatrixManipulations.md) 
-- [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems - 求解稀疏线性系统](./SolvingSparseLinearSystems.md)
-- [Doing-gaojing8500] 4.3 [Matrix-free solvers] - 无矩阵求解器
+  - [Doing-gaojing8500] 4.1 [Sparse matrix manipulations- 稀疏矩阵运算](./SparseMatrixManipulations.md) 
+  - [Doing-gaojing8500] 4.2 [Solving Sparse Linear Systems - 求解稀疏线性系统](./SolvingSparseLinearSystems.md)
+  - [Doing-gaojing8500] 4.3 [Matrix-free solvers] - 无矩阵求解器
 
 ## Attention
 
