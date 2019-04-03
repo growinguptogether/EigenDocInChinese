@@ -12,7 +12,7 @@
 - 复合运算符 += ， a += b
 - 复合运算符 -= ， a -= b
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector01.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector01.PNG)
 
 ## 标量乘法与除法
 - 二元运算符 *， matrix * scalar
@@ -21,32 +21,32 @@
 - 复合运算符 *=，matrix *= scalar
 - 复合运算符 /=， matrix /= scalar
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector02.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector02.PNG)
 
 ## 关于表达式模板的说明
 这是在本章中描述的一个高级主题，但是这里只是提到它的使用，在Eigen中，运算重载符，例如Operate+不会使用任何自身的计算，仅仅返回一个表达式对象来描述使用的计算。实际计算是在之后，当整个表达式被求值时，通常在Operator=中。虽然这听起来很沉重，但是任何现代编译器都能够优化这种抽象运算符，从而得到完全优化的代码的结果。例如：
 
-- ![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector03.PNG)
+- ![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector03.PNG)
 
 - Eigen 编译器仅仅只做一次循环，以至于数组只遍历一次，简化（忽略SIMD优化器），循环如下：
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector04.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector04.PNG)
 
 - 因此，不应该担心使用带有特征的相对较大的算术表达式:这只会为Eigen提供更多的优化。
 ## 转置和共轭
 对矩阵的转置、共轭和共轭转置分别由成员函数transpose(),conjugate(),adjoint()实现。
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector05.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector05.PNG)
 
 对于实数矩阵，共轭不会发生操作，所以adjoint()=transpose()。
 对于基本的重载运算符、transpose()和adjoint()简单的返回一个代理对象，而不是做实际的转置，如果你做b = a.transpose()，然后转置在结果被写进b的同时被求值，然而这里是一个复杂的问题，如果你做 a = a.transpose()，那么在转置的计算完成之前，Eigen开始把结果写进a中，因此，并不是期待那样，公式a = a.transpose()用它替换a
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector06.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector06.PNG)
 
 这里所谓的别名问题，在调试模型，在没有断言时，将自动检测此类常见的缺陷。
 对于In-place转置，对于例子a = a.transpose()，简单地使用transposeInPlace()函数
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector07.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector07.PNG)
 
 对于复杂的矩阵这里还有adjointInPlace() 函数。
 ## 矩阵相乘和矩阵与向量相乘
@@ -54,7 +54,7 @@
 - 二元重载符*，a * b
 - 三元重载符 *= ，a *= b(),在右边相乘：a*=b等于a = a*b。
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector08.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector08.PNG)
 
 提示：如果你阅读上面关于表达式模板的段落和可能导致别名问题m=m*m的担忧，Eigen把矩阵相乘作为特殊情况，引用一个临时变量，因此将它编译为m=m*m
 >tmp = m*m;
@@ -67,18 +67,18 @@ c.noalias() += a * b;
 ## 点乘和叉乘
 对于点乘与叉乘，使用dot()和cross()方法，当然点乘也可以用u.adjoint()*v表示为1x1矩阵。
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector09.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector09.PNG)
 
 记住叉乘向量的维度为3，向量的点乘任意维度，当使用复数时，Eigen点乘在第一个变量中是共轭线性的，在第二个变量中也是线性的。
 ## 基本算术规约操作
 Eigen提供了一些对于矩阵或向量的规约操作，如sum(),prod(),maxCoeff()和minCoeff()
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector10.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector10.PNG)
 
 矩阵的迹，由函数trace()返回，迹是矩阵对角系数之和，也可以使用a.diagonal().sum()高效计算。
 这里还存在minCoeff 和maxCoeff 函数返回各系数的坐标
 
-![Eigen](Imge/MatrixandVectorArithmetic/Eigen_vector11.PNG)
+![Eigen](Image/MatrixandVectorArithmetic/Eigen_vector11.PNG)
 
 ## 操作的有效性
 Eigen检查执行的操作的有效性。如果可能，它会在编译时检查它们，从而产生编译错误。这些错误消息可能又长有难看，但是Eigen用大写字母 UPPERCASE_LETTERS_SO_IT_STANDS_OUT写重要的消息。例如:
